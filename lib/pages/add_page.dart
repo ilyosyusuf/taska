@@ -128,7 +128,6 @@ class AddPage extends StatelessWidget {
                     image!,
                     email.toString(),
                    _titleController.text, _moreController.text);
-
                    _titleController.clear();
                    _moreController.clear();
                 },

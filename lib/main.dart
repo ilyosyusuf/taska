@@ -34,7 +34,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       // theme: ThemeComp.myTheme,
       // home: LoginPage()
-      initialRoute: FireService.auth.currentUser != null ? '/home': '/signin',
+      // initialRoute: FireService.auth.currentUser != null ? '/home': '/signup',
+      initialRoute: '/firstsplash',
       onGenerateRoute: _myRoute.onGenerateRoute,
     );
   }
