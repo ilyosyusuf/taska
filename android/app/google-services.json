@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "140042240380",
+    "project_id": "taska-97360",
+    "storage_bucket": "taska-97360.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140042240380:android:3e51d060230a4d07b464f9",
+        "android_client_info": {
+          "package_name": "com.ilyosyusuf.taska"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140042240380-sm2hr9uvpah704id7987mjom6org0pdf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ilyosyusuf.taska",
+            "certificate_hash": "34211b00222312a5db9519501b2bf921bafd6fa9"
+          }
+        },
+        {
+          "client_id": "140042240380-rnvfltuku76e416ussr5583e0sp5h2kc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5JA20pxj8w4EkEo1vXFDkhPm1JE7V4MM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140042240380-rnvfltuku76e416ussr5583e0sp5h2kc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
