@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       // theme: ThemeComp.myTheme,
       // home: LoginPage()
       // initialRoute: FireService.auth.currentUser != null ? '/home': '/signup',
-      initialRoute: '/firstsplash',
+      initialRoute: '/home',
       onGenerateRoute: _myRoute.onGenerateRoute,
     );
   }

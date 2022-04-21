@@ -8,18 +8,16 @@ import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/services/firebase/fire_service.dart';
 
 class AddProvider extends ChangeNotifier {
-  // AddProvider(){
-  //   addToList();
-  // }
   List todos = [];
   Future addToDb(BuildContext context, XFile file, String email, String title, String more) async {
       var image = await FireService.storage.ref().child('users').child('todos').child(title.trim()).putFile(File(file.path));
       String downloadUrl = await image.ref.getDownloadURL();
+
     todos.add({
       "image_todos": downloadUrl,
       "title": title,
       "more": more,
-      // "time": FieldValue.serverTimestamp().toString(),
+      "time": DateTime.now(),
     });
     await FireService.store.collection('users').doc('$email').set(
       {

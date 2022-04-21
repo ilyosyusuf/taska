@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taska/core/constants/colorconst.dart';
 import 'package:taska/pages/add_page.dart';
+import 'package:taska/pages/second_home_page.dart';
 import 'package:taska/services/firebase/fire_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
       body: TabBarView(
         controller: _tabController,
         children: [
-          Container(color: Colors.red,),
+          SecondHomePage(),
           AddPage(),
           Container(color: Colors.green,),
         ],
