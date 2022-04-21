@@ -21,6 +21,8 @@ class AddPage extends StatelessWidget {
   TextEditingController _titleController = TextEditingController();
 
   TextEditingController _moreController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+
   String? text;
   String? email;
 
@@ -48,11 +50,10 @@ class AddPage extends StatelessWidget {
                         image: image == null
                             ? DecorationImage(
                                 fit: BoxFit.cover,
-                                image: 
-                                AssetImage('assets/images/uploadimage.png')
-                              )
+                                image:
+                                    AssetImage('assets/images/uploadimage.png'))
                             : DecorationImage(
-                              fit: BoxFit.cover,
+                                fit: BoxFit.cover,
                                 image: FileImage(
                                   File(image!.path),
                                 ),
@@ -67,9 +68,9 @@ class AddPage extends StatelessWidget {
                     //     // color: Colors.grey,
                     //     borderRadius: BorderRadius.circular(20.0))),
                     onTap: () async {
-                      image = await _picker.pickImage(
-                          source: ImageSource.gallery);
-                      setstate((){});
+                      image =
+                          await _picker.pickImage(source: ImageSource.gallery);
+                      setstate(() {});
                     },
                   );
                 }),
@@ -78,42 +79,83 @@ class AddPage extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: textField(
+                            text: "Title", controller: _titleController)
+                        // child: TextFormField(
+                        //   controller: _titleController,
+                        //   keyboardType: TextInputType.multiline,
+                        //   maxLines: 5,
+                        //   minLines: 1,
+                        //   cursorColor: ColorConst.kPrimaryColor,
+                        //   cursorRadius: const Radius.circular(10),
+                        //   decoration: textDecoration("Title"),
+                        //   validator: (v) {
+                        //     if (v!.isEmpty) {
+                        //       // showSnackBar("Please fill the line", Colors.red);
+                        //       print("Please fill the line");
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
+                        ),
+                    Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: TextFormField(
-                        controller: _titleController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 5,
-                        minLines: 1,
-                        cursorColor: ColorConst.kPrimaryColor,
-                        cursorRadius: const Radius.circular(10),
-                        decoration: textDecoration("Title"),
-                        validator: (v) {
-                          if (v!.isEmpty) {
-                            // showSnackBar("Please fill the line", Colors.red);
-                            print("Please fill the line");
-                          }
-                          return null;
-                        },
-                      ),
+                      child:
+                          textField(text: "More", controller: _moreController),
+                      // child: TextFormField(
+                      //   controller: _moreController,
+                      //   keyboardType: TextInputType.multiline,
+                      //   maxLines: 10,
+                      //   minLines: 1,
+                      //   cursorColor: ColorConst.kPrimaryColor,
+                      //   cursorRadius: const Radius.circular(10),
+                      //   decoration: textDecoration("More"),
+                      //   validator: (v) {
+                      //     if (v!.isEmpty) {
+                      //       // showSnackBar("Please fill the line", Colors.red);
+                      //       print("Please fill the line");
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(20.0),
-                      child: TextFormField(
-                        controller: _moreController,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 10,
-                        minLines: 1,
-                        cursorColor: ColorConst.kPrimaryColor,
-                        cursorRadius: const Radius.circular(10),
-                        decoration: textDecoration("More"),
-                        validator: (v) {
-                          if (v!.isEmpty) {
-                            // showSnackBar("Please fill the line", Colors.red);
-                            print("Please fill the line");
-                          }
-                          return null;
-                        },
+                      child: textField(
+                        text: "Choose Date",
+                        controller: _dateController,
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.calendar_month),
+                          onPressed: () async {
+                            final DateTime? selected = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime.now(),
+                              lastDate: DateTime.utc(2060),
+                            );
+                            print(selected!.day);
+                            _dateController.text =
+                                "${selected.day}/${selected.month}/${selected.year}";
+                          },
+                        ),
                       ),
+                      // child: TextFormField(
+                      //   controller: _moreController,
+                      //   keyboardType: TextInputType.multiline,
+                      //   maxLines: 10,
+                      //   minLines: 1,
+                      //   cursorColor: ColorConst.kPrimaryColor,
+                      //   cursorRadius: const Radius.circular(10),
+                      //   decoration: textDecoration("More"),
+                      //   validator: (v) {
+                      //     if (v!.isEmpty) {
+                      //       // showSnackBar("Please fill the line", Colors.red);
+                      //       print("Please fill the line");
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                     ),
                   ],
                 ),
@@ -124,12 +166,14 @@ class AddPage extends StatelessWidget {
                   context.read<AddProvider>().addToList();
                   email = FireService.auth.currentUser!.email.toString();
                   print(email);
-                   context.read<AddProvider>().addToDb(context,
-                    image!,
-                    email.toString(),
-                   _titleController.text, _moreController.text);
-                   _titleController.clear();
-                   _moreController.clear();
+                  context.read<AddProvider>().addToDb(
+                      context,
+                      image!,
+                      email.toString(),
+                      _titleController.text,
+                      _moreController.text);
+                  _titleController.clear();
+                  _moreController.clear();
                 },
                 child: Text("Add"),
               ),
@@ -140,15 +184,24 @@ class AddPage extends StatelessWidget {
     );
   }
 
-  InputDecoration textDecoration(String text) {
-    return InputDecoration(
-      fillColor: Colors.grey.shade200,
-      filled: true,
-      hintText: text,
-      hintStyle: TextStyle(color: ColorConst.kPrimaryColor),
-      border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15.0),
-          borderSide: BorderSide.none),
-    );
+  TextFormField textField(
+      {required String text,
+      IconButton? iconButton,
+      required TextEditingController controller,
+      IconButton? suffixIcon}) {
+    return TextFormField(
+        controller: controller,
+        decoration: InputDecoration(
+          fillColor: Colors.grey.shade200,
+          filled: true,
+          hintText: text,
+          suffixIcon: suffixIcon,
+          hintStyle: TextStyle(color: ColorConst.kPrimaryColor),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide.none),
+        )
+        // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
+        );
   }
 }
