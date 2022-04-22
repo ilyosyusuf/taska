@@ -22,6 +22,7 @@ class AddPage extends StatelessWidget {
 
   TextEditingController _moreController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
 
   String? text;
   String? email;
@@ -63,6 +64,7 @@ class AddPage extends StatelessWidget {
                       ),
                     ),
                     //  BoxDecoration(
+                      
                     //     image: DecorationImage(
                     //         image: FileImage(File(image!.path))),
                     //     // color: Colors.grey,
@@ -135,8 +137,50 @@ class AddPage extends StatelessWidget {
                               lastDate: DateTime.utc(2060),
                             );
                             print(selected!.day);
-                            _dateController.text =
-                                "${selected.day}/${selected.month}/${selected.year}";
+
+                            selected != null
+                                ? _dateController.text =
+                                    "${selected.day}/${selected.month}/${selected.year}"
+                                : _timeController.text = '';
+                          },
+                        ),
+                      ),
+                      // child: TextFormField(
+                      //   controller: _moreController,
+                      //   keyboardType: TextInputType.multiline,
+                      //   maxLines: 10,
+                      //   minLines: 1,
+                      //   cursorColor: ColorConst.kPrimaryColor,
+                      //   cursorRadius: const Radius.circular(10),
+                      //   decoration: textDecoration("More"),
+                      //   validator: (v) {
+                      //     if (v!.isEmpty) {
+                      //       // showSnackBar("Please fill the line", Colors.red);
+                      //       print("Please fill the line");
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: textField(
+                        text: "Choose Time",
+                        controller: _timeController,
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.timer),
+                          onPressed: () async {
+                            TimeOfDay? selectedTime = await showTimePicker(
+                                context: context,
+                                initialTime:
+                                    const TimeOfDay(hour: 9, minute: 00));
+                            selectedTime != null
+                                ? _timeController.text =
+                                    '${selectedTime.hour}:${selectedTime.minute}'
+                                        .toUpperCase()
+                                : _timeController.text = '';
+                            debugPrint(
+                                '${selectedTime!.hour} : ${selectedTime.minute}');
                           },
                         ),
                       ),
@@ -163,6 +207,18 @@ class AddPage extends StatelessWidget {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(fixedSize: Size(200, 80)),
                 onPressed: () async {
+                  showDialog(
+                                      useSafeArea: true,
+                                      context: context,
+                                      builder: (widget) => SizedBox(
+                                            height: MediaQuery.of(context).size.height * 0.1,
+                                            width: MediaQuery.of(context).size.height * 0.1,
+                                            child: Center(
+                                                child: LottieBuilder.asset(
+                                              'assets/icons/checkmark.json',
+                                              fit: BoxFit.cover,
+                                            )),
+                                          ));
                   context.read<AddProvider>().addToList();
                   email = FireService.auth.currentUser!.email.toString();
                   print(email);
@@ -171,9 +227,14 @@ class AddPage extends StatelessWidget {
                       image!,
                       email.toString(),
                       _titleController.text,
-                      _moreController.text);
+                      _moreController.text,
+                      _dateController.text,
+                      _timeController.text,
+                      );
                   _titleController.clear();
                   _moreController.clear();
+                  _timeController.clear();
+                  _dateController.clear();
                 },
                 child: Text("Add"),
               ),

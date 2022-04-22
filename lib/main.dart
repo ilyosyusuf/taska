@@ -4,7 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:taska/core/components/theme_comp.dart';
 import 'package:taska/core/routes/my_route.dart';
 import 'package:taska/providers/add_provider.dart';
+import 'package:taska/providers/change_provider.dart';
 import 'package:taska/providers/lottie_provider.dart';
+import 'package:taska/providers/ontap_provider.dart';
 import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/services/firebase/fire_service.dart';
 
@@ -18,6 +20,8 @@ void main() async {
       ChangeNotifierProvider(create: (context) => LoginProvider()),
       ChangeNotifierProvider(create: (context) => SplashProvider()),
       ChangeNotifierProvider(create: (context) => AddProvider()),
+      ChangeNotifierProvider(create: (context) => ChangeProvider()),
+      ChangeNotifierProvider(create: (context) => OnTapProvider()),
     ], child: MyApp()),
   );
 }
