@@ -8,6 +8,7 @@ import 'package:taska/providers/change_provider.dart';
 import 'package:taska/providers/lottie_provider.dart';
 import 'package:taska/providers/ontap_provider.dart';
 import 'package:taska/providers/signin_provider.dart';
+import 'package:taska/providers/theme_provider.dart';
 import 'package:taska/services/firebase/fire_service.dart';
 
 import 'screens/authentication/sign_up_page.dart';
@@ -22,6 +23,7 @@ void main() async {
       ChangeNotifierProvider(create: (context) => AddProvider()),
       ChangeNotifierProvider(create: (context) => ChangeProvider()),
       ChangeNotifierProvider(create: (context) => OnTapProvider()),
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ], child: MyApp()),
   );
 }
@@ -36,11 +38,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      theme: ThemeData(brightness: context.watch<ThemeProvider>().themeMode),
       // theme: ThemeData.dark(),
       // theme: ThemeComp.myTheme,
       // home: LoginPage()
       // initialRoute: FireService.auth.currentUser != null ? '/home': '/signup',
-      initialRoute: '/home',
+      initialRoute: '/signup',
       onGenerateRoute: _myRoute.onGenerateRoute,
     );
   }

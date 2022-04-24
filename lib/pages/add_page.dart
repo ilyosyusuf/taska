@@ -6,6 +6,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:taska/core/components/app_bar.dart';
+import 'package:taska/core/components/text_field.dart';
 import 'package:taska/core/constants/colorconst.dart';
 import 'package:taska/providers/add_provider.dart';
 import 'package:taska/providers/signin_provider.dart';
@@ -30,29 +32,7 @@ class AddPage extends StatelessWidget {
         // height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            Container(
-              color: Colors.white,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/taska.png',
-                        width: 50,
-                      ),
-                      const Text(
-                        "Taska",
-                        style: TextStyle(
-                            fontSize: 25.0,
-                            fontFamily: 'mainFont',
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          MyAppBar.myAppBar(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: StatefulBuilder(builder: (context, setstate) {
@@ -93,12 +73,12 @@ class AddPage extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.only(
                           bottom: 10.0, left: 20.0, right: 20.0),
-                      child: textField(
+                      child: MyTextField.textField(
                           text: "Title", controller: _titleController)),
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: 10.0, left: 20.0, right: 20.0),
-                    child: textField(text: "More", controller: _moreController),
+                    child: MyTextField.textField(text: "More", controller: _moreController),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -106,7 +86,7 @@ class AddPage extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: textField(
+                          child: MyTextField.textField(
                               text: "Choose Date",
                               controller: _dateController,
                               read: true),
@@ -145,7 +125,7 @@ class AddPage extends StatelessWidget {
                     child: Row(
                       children: [
                         Expanded(
-                          child: textField(
+                          child: MyTextField.textField(
                             text: "Choose Time",
                             controller: _timeController,
                             read: true,
@@ -229,30 +209,30 @@ class AddPage extends StatelessWidget {
     );
   }
 
-  TextFormField textField(
-      {required String text,
-      IconButton? iconButton,
-      required TextEditingController controller,
-      IconButton? suffixIcon,
-      bool? read = false}) {
-    return TextFormField(
-        readOnly: read!,
-        controller: controller,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(25.0),
-            borderSide: BorderSide(color: ColorConst.kPrimaryColor),
-          ),
-          filled: true,
-          hintText: text,
-          suffixIcon: suffixIcon,
-          hintStyle: TextStyle(color: ColorConst.kPrimaryColor),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0),
-              borderSide: BorderSide.none),
-        )
-        // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
-        );
-  }
+  // TextFormField textField(
+  //     {required String text,
+  //     IconButton? iconButton,
+  //     required TextEditingController controller,
+  //     IconButton? suffixIcon,
+  //     bool? read = false}) {
+  //   return TextFormField(
+  //       readOnly: read!,
+  //       controller: controller,
+  //       decoration: InputDecoration(
+  //         fillColor: Colors.white,
+  //         focusedBorder: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(25.0),
+  //           borderSide: BorderSide(color: ColorConst.kPrimaryColor),
+  //         ),
+  //         filled: true,
+  //         hintText: text,
+  //         suffixIcon: suffixIcon,
+  //         hintStyle: TextStyle(color: ColorConst.kPrimaryColor),
+  //         border: OutlineInputBorder(
+  //             borderRadius: BorderRadius.circular(15.0),
+  //             borderSide: BorderSide.none),
+  //       )
+  //       // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
+  //       );
+  // }
 }

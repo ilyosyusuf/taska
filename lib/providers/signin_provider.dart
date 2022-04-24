@@ -42,7 +42,7 @@ class LoginProvider extends ChangeNotifier {
       email = emailController;
       notifyListeners();
     } catch (e) {
-      MyMessenger.messenger(context, "Error while sign in!", Colors.red);
+      MyMessenger.messenger(context, "Error while sign up!", Colors.red);
     }
     notifyListeners();
   }
@@ -111,7 +111,7 @@ class LoginProvider extends ChangeNotifier {
   Future logOut(BuildContext context) async {
     try {
       await FireService.auth.signOut();
-      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/signin', (route) => false);
     } on FirebaseAuthException catch (e) {
       print("Xatolik yuz berdi");
     }

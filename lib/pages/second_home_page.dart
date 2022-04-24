@@ -2,10 +2,13 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:taska/core/components/app_bar.dart';
+import 'package:taska/core/components/text_field.dart';
 import 'package:taska/core/constants/colorconst.dart';
 import 'package:taska/providers/add_provider.dart';
 import 'package:taska/providers/change_provider.dart';
 import 'package:taska/services/firebase/home_service.dart';
+import 'package:taska/widgets/task_info_widget.dart';
 
 class SecondHomePage extends StatefulWidget {
   SecondHomePage({Key? key}) : super(key: key);
@@ -46,38 +49,17 @@ class _SecondHomePageState extends State<SecondHomePage> {
               color: ColorConst.kBackgroundColor,
               child: Column(
                 children: [
-                  Container(
-                    color: Colors.white,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/taska.png',
-                              width: 50,
-                            ),
-                            const Text(
-                              "Taska",
-                              style: TextStyle(
-                                  fontSize: 25.0,
-                                  fontFamily: 'mainFont',
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(FontAwesomeIcons.bell),
-                          color: ColorConst.kPrimaryColor,
-                        ),
-                      ],
+                  MyAppBar.myAppBar(
+                    iconButton: IconButton(
+                      onPressed: () {},
+                      icon: Icon(FontAwesomeIcons.bell),
+                      color: ColorConst.kPrimaryColor,
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      child: textField(
+                      child: MyTextField.textField(
                         text: 'search...',
                         controller: _searchController,
                         iconButton: IconButton(
@@ -96,20 +78,18 @@ class _SecondHomePageState extends State<SecondHomePage> {
                               ? Swiper(
                                   autoplay: true,
                                   containerHeight:
-                                      MediaQuery.of(context).size.height *
-                                          0.1,
+                                      MediaQuery.of(context).size.height * 0.1,
                                   itemCount: snap.data!['todos'].length,
                                   itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(color: Colors.yellow, child: Text(snap.data!['todos'][index]['title'].toString()),),
+                                    return PicTaskInfoWidget(
+                                      image: snap.data!['todos'][index]
+                                          ['image_todos'],
+                                      index: index,
+                                      title: snap.data!['todos'][index]['title']
+                                          .toString(),
+                                      date: snap.data!['todos'][index]['date']
+                                          .toString(),
                                     );
-                                    // return PicTaskInfoWidget(
-                                    //   image: data['tasks'][index]['pic'],
-                                    //   index: index,
-                                    //   title: data['tasks'][index]['title'].toString(),
-                                    //   date: data['tasks'][index]['date'].toString(),
-                                    // );
                                   },
                                 )
                               : const Center(
@@ -127,19 +107,15 @@ class _SecondHomePageState extends State<SecondHomePage> {
                               itemBuilder: (context, i) {
                                 return Padding(
                                     padding: const EdgeInsets.only(
-                                        bottom: 15.0,
-                                        left: 15.0,
-                                        right: 15.0),
+                                        bottom: 15.0, left: 15.0, right: 15.0),
                                     child: Container(
-                                      width:
-                                          MediaQuery.of(context).size.width,
+                                      width: MediaQuery.of(context).size.width,
                                       height:
                                           MediaQuery.of(context).size.height *
                                               0.11,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                         boxShadow: const [
                                           BoxShadow(
                                             color: Color.fromARGB(
@@ -153,8 +129,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                       alignment: Alignment.center,
                                       child: ListTile(
                                         title: Text(
-                                          data!['todos'][i]['title']
-                                              .toString(),
+                                          data!['todos'][i]['title'].toString(),
                                         ),
                                         subtitle: Row(
                                           children: [
@@ -175,23 +150,24 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                             child: Checkbox(
                                               side: BorderSide(
                                                   width: 1,
-                                                  color: ColorConst
-                                                      .kPrimaryColor),
+                                                  color:
+                                                      ColorConst.kPrimaryColor),
                                               activeColor:
                                                   ColorConst.kPrimaryColor,
-                                              value: data['todos'][i]
-                                                  ['check'],
+                                              value: data['todos'][i]['check'],
                                               onChanged: (v) async {
                                                 data['todos'][i]['check'] =
-                                                    !data['todos'][i]
-                                                        ['check'];
-                                          
-                                                context
+                                                    !data['todos'][i]['check'];
+
+                                                 await context
                                                     .read<AddProvider>()
                                                     .changeValue(
                                                         i,
                                                         data['todos'][i]
                                                             ['check']);
+                                                await context
+                                                    .read<AddProvider>()
+                                                    .deleteTodos(i);
                                                 setState(() {});
                                               },
                                             ),
@@ -214,27 +190,5 @@ class _SecondHomePageState extends State<SecondHomePage> {
         },
       ),
     );
-  }
-
-  TextFormField textField(
-      {required String text,
-      IconButton? iconButton,
-      required TextEditingController controller,
-      IconButton? suffixIcon}) {
-    return TextFormField(
-        controller: controller,
-        decoration: InputDecoration(
-          fillColor: Colors.white,
-          filled: true,
-          hintText: text,
-          prefixIcon: iconButton,
-          suffixIcon: suffixIcon,
-          hintStyle: TextStyle(color: Colors.grey),
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15.0),
-              borderSide: BorderSide.none),
-        )
-        // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
-        );
   }
 }

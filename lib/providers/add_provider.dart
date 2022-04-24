@@ -40,16 +40,31 @@ class AddProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future changeValue(int index, bool onTap)async{
+  Future changeValue(int index, bool onTap) async {
     todos[index]['check'] = onTap;
 
-        await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').set(
+    await FireService.store
+        .collection('users')
+        .doc('${FireService.auth.currentUser!.email}')
+        .set(
       {"todos": todos},
       SetOptions(merge: true),
     );
+    // print(todos[index]['check']);
 
-    print(todos[index]['check']);
+    notifyListeners();
+  }
 
+  Future deleteTodos(int index) async {
+    if (todos[index]['check']) {
+    todos.removeAt(index);
+    }
+    await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').update(
+      {
+        "todos": todos,
+      },
+    );
+    SetOptions(merge: true);
     notifyListeners();
   }
 
@@ -61,7 +76,6 @@ class AddProvider extends ChangeNotifier {
         .then((value) {
       todos = value.data()!['todos'];
       print(todos);
-
     });
   }
 }
