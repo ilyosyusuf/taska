@@ -48,6 +48,7 @@ dependencies:
   animate_do: ^2.1.0
   animated_text_kit: ^4.2.1
   card_swiper: ^2.0.3
+  font_awesome_flutter: ^9.2.0
 
 dev_dependencies:
   flutter_test:

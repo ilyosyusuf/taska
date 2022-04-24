@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taska/core/constants/colorconst.dart';
 import 'package:taska/pages/add_page.dart';
+import 'package:taska/pages/profile_page.dart';
 import 'package:taska/pages/second_home_page.dart';
 import 'package:taska/services/firebase/fire_service.dart';
 
@@ -24,12 +26,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: TabBarView(
         controller: _tabController,
         children: [
           SecondHomePage(),
           AddPage(),
-          Container(color: Colors.green,),
+          ProfilePage(),
         ],
       ),
       bottomNavigationBar: TabBar(
@@ -38,11 +41,28 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
         labelColor: ColorConst.kPrimaryColor,
         unselectedLabelColor: Colors.grey,
         tabs: const [
-          Tab(icon: Icon(Icons.home)),
-          Tab(icon: Icon(Icons.add)),
-          Tab(icon: Icon(Icons.verified_user)),
+          Tab(icon: Icon(FontAwesomeIcons.home)),
+          Tab(icon: Icon(FontAwesomeIcons.plus)),
+          Tab(icon: Icon(FontAwesomeIcons.user)),
         ]
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (){
+      //     showModalBottomSheet(
+      //       context: context, 
+      //       isScrollControlled: true,
+      //       builder: (v){
+            
+      //       return SafeArea(
+      //         child: SizedBox(
+      //           height: MediaQuery.of(context).size.height * 0.95,
+      //           // width: MediaQuery.of(context).size.width,
+      //           child: AddPage()),
+      //       );
+      //     });
+      //   }
+      // ),
     );
   }
+  
 }

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:taska/pages/profile_page.dart';
 import 'package:taska/screens/authentication/sign_in_page.dart';
 import 'package:taska/screens/authentication/sign_up_page.dart';
 import 'package:taska/screens/fillprofile_page.dart';
 import 'package:taska/screens/first_splash_page.dart';
 import 'package:taska/screens/homepage.dart';
 import 'package:taska/screens/splash_page.dart';
+import 'package:taska/screens/update_profile_page.dart';
 
 class MyRoute {
   Route? onGenerateRoute(RouteSettings settings) {
@@ -17,6 +19,8 @@ class MyRoute {
         return MaterialPageRoute(builder: ((context) => SplashPage()));
       case '/home':
         return MaterialPageRoute(builder: ((context) => HomePage()));
+      case '/profile':
+        return MaterialPageRoute(builder: ((context) => ProfilePage()));
       case '/signup':
         return MaterialPageRoute(builder: ((context) => SignUpPage()));
         
@@ -25,6 +29,8 @@ class MyRoute {
 
       case '/fillprofile':
         return MaterialPageRoute(builder: ((context) => FillProfilePage()));
+      case '/updateprofile':
+        return MaterialPageRoute(builder: ((context) => UpdateProfilePage()));
     }
   }
 }

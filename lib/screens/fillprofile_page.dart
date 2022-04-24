@@ -4,20 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:phonenumbers/phonenumbers.dart';
 import 'package:provider/provider.dart';
+import 'package:taska/core/components/text_field.dart';
 import 'package:taska/core/constants/colorconst.dart';
 import 'package:taska/core/constants/font_const.dart';
 import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/widgets/elevated_button_widget.dart';
 
-// class FillProfilePage extends StatefulWidget {
-//   FillProfilePage({Key? key}) : super(key: key);
-
-//   @override
-//   State<FillProfilePage> createState() => _FillProfilePageState();
-// }
-
 class FillProfilePage extends StatelessWidget {
-  // FillProfilePage(Key? key,):super(key: key);
 
   TextEditingController nameController = TextEditingController();
   TextEditingController usernameController = TextEditingController();
@@ -27,7 +20,6 @@ class FillProfilePage extends StatelessWidget {
   TextEditingController roleController = TextEditingController();
   XFile? image;
   final ImagePicker _picker = ImagePicker();
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +75,6 @@ class FillProfilePage extends StatelessWidget {
                                     onPressed: () async {
                                       image = await _picker.pickImage(
                                           source: ImageSource.gallery);
-                                      // setState(() {});
                                       setState((){});
                                     },
                                     icon: Icon(Icons.edit),
@@ -95,9 +86,9 @@ class FillProfilePage extends StatelessWidget {
                         );
                       }),
                     ),
-                    textField(text: "Full name", controller: nameController),
-                    textField(text: "Usename", controller: usernameController),
-                    textField(
+                    MyTextField.textField(text: "Full name", controller: nameController),
+                    MyTextField.textField(text: "Usename", controller: usernameController),
+                    MyTextField.textField(
                         text: "Date of Birth",
                         controller: birthController,
                         iconButton: IconButton(
@@ -113,12 +104,11 @@ class FillProfilePage extends StatelessWidget {
                                   "${selected.day}/${selected.month}/${selected.year}";
                             },
                             icon: Icon(Icons.calendar_month))),
-                    textField(
+                    MyTextField.textField(
                         text: "Email",
                         controller: emailController,
                         iconButton: IconButton(
                             onPressed: () {}, icon: Icon(Icons.email))),
-
                     PhoneNumberField(
                       controller: phoneController,
                       countryCodeWidth: 80,
@@ -134,10 +124,10 @@ class FillProfilePage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    textField(text: "Role", controller: roleController),
+                    MyTextField.textField(text: "Role", controller: roleController),
                     SizedBox(height: 50),
                     ElevatedButtonWidget(onPressed: () {
-                      context.read<LoginProvider>().updateProfile(context, image!, nameController.text, usernameController.text, birthController.text, phoneController.nationalNumber, roleController.text);
+                      context.read<LoginProvider>().fillProfile(context, image!, nameController.text, usernameController.text, birthController.text, phoneController.nationalNumber, roleController.text);
                     }, text: "Continue")
                   ],
                 ),
@@ -149,26 +139,4 @@ class FillProfilePage extends StatelessWidget {
     );
   }
 
-  TextFormField textField(
-      {required String text,
-      IconButton? iconButton,
-      required TextEditingController controller,
-      IconButton? phoneNumber}) {
-    return TextFormField(
-      controller: controller,
-      decoration: InputDecoration(
-        hintText: text,
-        hintStyle: TextStyle(color: Colors.grey),
-        suffixIcon: iconButton,
-        prefixIcon: phoneNumber,
-        fillColor: ColorConst.kTextFieldColor,
-        filled: true,
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-      ),
-      // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
-    );
-  }
 }

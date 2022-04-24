@@ -61,12 +61,12 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-    Future updateProfile(BuildContext context, XFile file, String name, String username, String birth, String phone, String role) async {
+  Future fillProfile(BuildContext context, XFile file, String name, String username, String birth, String phone, String role) async {
     try {
-        var image = await FireService.storage.ref().child('users').child('avatars').child(email.toString()).putFile(File(file.path));
+        var image = await FireService.storage.ref().child('users').child('avatars').child(FireService.auth.currentUser!.email.toString()).putFile(File(file.path));
         String downloadUrl = await image.ref.getDownloadURL();
 
-      await FireService.store.collection('users').doc('$email').update(
+      await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').update(
         {
           "image_url": downloadUrl,
           "name": name,
@@ -75,6 +75,29 @@ class LoginProvider extends ChangeNotifier {
           "phone": phone,
           "role": role,
           "todos": [],
+        },
+      );
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+        SetOptions(merge: true);
+    } catch (e) {
+      MyMessenger.messenger(context, "Error while updating!", Colors.red);
+    }
+    notifyListeners();
+  }
+
+    Future updateProfile(BuildContext context, XFile file, String name, String username, String birth, String phone, String role) async {
+    try {
+        var image = await FireService.storage.ref().child('users').child('avatars').child(FireService.auth.currentUser!.email.toString()).putFile(File(file.path));
+        String downloadUrl = await image.ref.getDownloadURL();
+
+      await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').update(
+        {
+          "image_url": downloadUrl,
+          "name": name,
+          "username": username,
+          "birth": birth,
+          "phone": phone,
+          "role": role,
         },
       );
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);

@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+      // theme: ThemeData.dark(),
       // theme: ThemeComp.myTheme,
       // home: LoginPage()
       // initialRoute: FireService.auth.currentUser != null ? '/home': '/signup',

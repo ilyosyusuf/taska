@@ -40,22 +40,9 @@ class AddProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future checkTrue(int index) async {
-  //   // onTap = !onTap;
-  //   // todos[index]['check'] = false;
-  //   // FireHome.myData['todos'][index]['check'] = true;
-  //   //  print(FireHome.myData['todos'][index]['check']);
-  //   await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').set(
-  //     {"todos": todos},
-  //     SetOptions(merge: true),
-  //   );
-  //   notifyListeners();
-  // }
-
-
   Future changeValue(int index, bool onTap)async{
     todos[index]['check'] = onTap;
-    
+
         await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').set(
       {"todos": todos},
       SetOptions(merge: true),
@@ -74,6 +61,7 @@ class AddProvider extends ChangeNotifier {
         .then((value) {
       todos = value.data()!['todos'];
       print(todos);
+
     });
   }
 }
