@@ -6,7 +6,6 @@ import 'package:taska/core/components/app_bar.dart';
 import 'package:taska/core/components/text_field.dart';
 import 'package:taska/core/constants/colorconst.dart';
 import 'package:taska/providers/add_provider.dart';
-import 'package:taska/providers/change_provider.dart';
 import 'package:taska/services/firebase/home_service.dart';
 import 'package:taska/widgets/task_info_widget.dart';
 
@@ -20,6 +19,7 @@ class SecondHomePage extends StatefulWidget {
 class _SecondHomePageState extends State<SecondHomePage> {
   TextEditingController _searchController = TextEditingController();
   bool onTap = false;
+  bool tapToSearch = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -45,6 +45,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
             );
           } else {
             var data = snap.data;
+            List sett = context.watch<AddProvider>().setList.toList();
             return Container(
               color: ColorConst.kBackgroundColor,
               child: Column(
@@ -62,6 +63,14 @@ class _SecondHomePageState extends State<SecondHomePage> {
                       child: MyTextField.textField(
                         text: 'search...',
                         controller: _searchController,
+                        onChanged: (text) {
+                          context.read<AddProvider>().searchIt(text);
+                        },
+                        onTap: () {
+                          _searchController.clear();
+                          tapToSearch = !tapToSearch;
+                          setState(() {});
+                        },
                         iconButton: IconButton(
                           onPressed: () {},
                           icon: Icon(Icons.search),
@@ -70,7 +79,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                     ),
                   ),
                   Expanded(
-                    child: Column(
+                    child: _searchController.text.isEmpty ? Column(
                       children: [
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.25,
@@ -103,7 +112,6 @@ class _SecondHomePageState extends State<SecondHomePage> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height,
                             child: ListView.builder(
-                              // physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, i) {
                                 return Padding(
                                     padding: const EdgeInsets.only(
@@ -159,7 +167,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                                 data['todos'][i]['check'] =
                                                     !data['todos'][i]['check'];
 
-                                                 await context
+                                                await context
                                                     .read<AddProvider>()
                                                     .changeValue(
                                                         i,
@@ -181,8 +189,89 @@ class _SecondHomePageState extends State<SecondHomePage> {
                           ),
                         ),
                       ],
+                    )   : SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.builder(
+                        itemBuilder: (context, i) {
+                          return Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 15.0, left: 15.0, right: 15.0),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height *
+                                        0.11,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color.fromARGB(
+                                          255, 183, 202, 212),
+                                      spreadRadius: 3,
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 5),
+                                    ),
+                                  ],
+                                ),
+                                alignment: Alignment.center,
+                                child: ListTile(
+                                  title: Text(
+                                    sett[i]['title'].toString(),
+                                  ),
+                                  subtitle: Row(
+                                    children: [
+                                      Text(sett[i]['date']
+                                                  .toString() ==
+                                              DateTime.now()
+                                          ? "Today"
+                                          : sett[i]['date']
+                                              .toString()),
+                                      Text(" - "),
+                                      Text(sett[i]['time']
+                                          .toString()),
+                                    ],
+                                  ),
+                                  trailing: Transform.scale(
+                                    scale: 1.2,
+                                    child: SizedBox(
+                                      child: Checkbox(
+                                        side: BorderSide(
+                                            width: 1,
+                                            color:
+                                                ColorConst.kPrimaryColor),
+                                        activeColor:
+                                            ColorConst.kPrimaryColor,
+                                        value: sett[i]['check'],
+                                        onChanged: (v) async {
+                                          sett[i]['check'] =
+                                              !sett[i]['check'];
+
+                                          await context
+                                              .read<AddProvider>()
+                                              .changeValue(
+                                                  i,
+                                                  sett[i]
+                                                      ['check']);
+                                          await context.read<AddProvider>().addToList();
+                                          await context
+                                              .read<AddProvider>()
+                                              .deleteTodos(i);
+                                              // await context.read<AddProvider>().addToList(); 
+                                          setState(() {});
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ));
+                        },
+                        itemCount: sett.length,
+                      ),
                     ),
-                  ),
+                    )
+                  
                 ],
               ),
             );

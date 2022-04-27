@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class MyAppBar {
   static myAppBar({IconButton? iconButton}) {
     return Container(
+      color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

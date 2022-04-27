@@ -6,10 +6,12 @@ class MyTextField{
       {required String text,
       IconButton? iconButton,
       required TextEditingController controller,
-      IconButton? phoneNumber, bool read = false}) {
+      IconButton? phoneNumber, bool read = false, var onChanged, VoidCallback? onTap}) {
     return TextFormField(
       controller: controller,
       readOnly: read,
+      onChanged: onChanged,
+      onTap: onTap,
       decoration: InputDecoration(
         hintText: text,
         hintStyle: TextStyle(color: Colors.grey),

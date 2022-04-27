@@ -4,33 +4,54 @@ import 'package:taska/screens/authentication/sign_in_page.dart';
 import 'package:taska/screens/authentication/sign_up_page.dart';
 import 'package:taska/screens/fillprofile_page.dart';
 import 'package:taska/screens/first_splash_page.dart';
+import 'package:taska/screens/full_info_page.dart';
 import 'package:taska/screens/homepage.dart';
 import 'package:taska/screens/splash_page.dart';
 import 'package:taska/screens/update_profile_page.dart';
 
 class MyRoute {
+  static final MyRoute _instance = MyRoute._init();
+  static MyRoute get instance => _instance;
+  
+  MyRoute._init();
+
   Route? onGenerateRoute(RouteSettings settings) {
     var args = settings.arguments;
-
     switch (settings.name) {
+
       case '/firstsplash':
-        return MaterialPageRoute(builder: ((context) => FirstSplashPage()));
+        return _pages(FirstSplashPage());
+
       case '/splash':
-        return MaterialPageRoute(builder: ((context) => SplashPage()));
+        return _pages(SplashPage());
       case '/home':
-        return MaterialPageRoute(builder: ((context) => HomePage()));
+        return _pages(HomePage());
+
       case '/profile':
-        return MaterialPageRoute(builder: ((context) => ProfilePage()));
+        return _pages(ProfilePage());
+
       case '/signup':
-        return MaterialPageRoute(builder: ((context) => SignUpPage()));
-        
+        return _pages(SignUpPage());
+
       case '/signin':
-        return MaterialPageRoute(builder: ((context) => SignInPage()));
+        return _pages(SignInPage());
 
       case '/fillprofile':
-        return MaterialPageRoute(builder: ((context) => FillProfilePage()));
+        return _pages(FillProfilePage());
+
       case '/updateprofile':
-        return MaterialPageRoute(builder: ((context) => UpdateProfilePage()));
+        return _pages(UpdateProfilePage());
+
+      case '/fullinfo':
+        return _pages(FullInfoPage());
+
     }
   }
+    _pages(Widget page){
+      return MaterialPageRoute(builder: (context)=> page);
+    }
+
 }
+
+
+  

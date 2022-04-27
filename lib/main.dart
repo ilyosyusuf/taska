@@ -9,12 +9,15 @@ import 'package:taska/providers/lottie_provider.dart';
 import 'package:taska/providers/ontap_provider.dart';
 import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/providers/theme_provider.dart';
+import 'package:taska/screens/home.dart';
 import 'package:taska/services/firebase/fire_service.dart';
+import 'package:taska/services/notification_service.dart';
 
 import 'screens/authentication/sign_up_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService().initNotification();
   await Firebase.initializeApp();
   runApp(
     MultiProvider(providers: [
@@ -31,7 +34,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  MyRoute _myRoute = MyRoute();
+  // MyRoute _myRoute = MyRoute();
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +46,9 @@ class MyApp extends StatelessWidget {
       // theme: ThemeComp.myTheme,
       // home: LoginPage()
       // initialRoute: FireService.auth.currentUser != null ? '/home': '/signup',
-      initialRoute: '/signup',
-      onGenerateRoute: _myRoute.onGenerateRoute,
+      initialRoute: '/home',
+      onGenerateRoute: MyRoute.instance.onGenerateRoute,
+      // home: ExamplePage(),
     );
   }
 }

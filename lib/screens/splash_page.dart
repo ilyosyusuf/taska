@@ -1,43 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:lottie/lottie.dart';
-// import 'package:provider/provider.dart';
-// import 'package:taska/providers/lottie_provider.dart';
-
-// class SplashPage extends StatefulWidget {
-//   const SplashPage({ Key? key }) : super(key: key);
-
-//   @override
-//   State<SplashPage> createState() => _SplashPageState();
-// }
-
-// class _SplashPageState extends State<SplashPage> {
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var lotties = context.watch<SplashProvider>();
-//     return Scaffold(
-
-//       body: SafeArea(
-//         child: Column(
-//           children: [
-//             Expanded(
-//               child: lotties.images[lotties.index]
-//             ),
-//             Expanded(
-//               child: Column(
-//                 children: [
-//                   Text(lotties.textInfo[lotties.index], style: TextStyle(fontSize: 25.0),),
-//                   Text(lotties.lorem, style: TextStyle(fontSize: 0.0),),
-//                 ],
-//               )
-//             ),
-//           ],
-//         ),
-//       )
-//     );
-//   }
-// }
-
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,7 +18,6 @@ class SplashPage extends StatelessWidget {
           Expanded(
               flex: 5,
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
@@ -67,7 +26,6 @@ class SplashPage extends StatelessWidget {
                       allVariables.textInfo[allVariables.index],
                       style: const TextStyle(
                           fontSize: 26,
-                          // fontFamily: 'myfont',
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -78,7 +36,6 @@ class SplashPage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 25.0, right: 25.0),
                     child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.100,
-                        // width: MediaQuery.of(context).size.width * 0.7,
                         child: Text(
                           allVariables.lorem,
                           style: TextStyle(fontSize: 18),

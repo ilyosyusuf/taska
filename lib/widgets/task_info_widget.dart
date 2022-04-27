@@ -20,8 +20,6 @@ class _PicTaskInfoWidgetState extends State<PicTaskInfoWidget> {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.all(15.0),
-      // height: size.height * 0.3,
-      // width: size.width * 0.8,
       decoration: BoxDecoration(
           boxShadow:  [
             BoxShadow(

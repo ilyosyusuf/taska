@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -8,7 +7,6 @@ import 'package:phonenumbers/phonenumbers.dart';
 import 'package:provider/provider.dart';
 import 'package:taska/core/components/text_field.dart';
 import 'package:taska/core/constants/colorconst.dart';
-import 'package:taska/core/constants/font_const.dart';
 import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/services/firebase/home_service.dart';
 import 'package:taska/widgets/elevated_button_widget.dart';
@@ -26,7 +24,6 @@ class UpdateProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       backgroundColor: ColorConst.kBackgroundColor,
       body: SingleChildScrollView(
         child: SafeArea(

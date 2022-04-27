@@ -1,10 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_list.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:provider/provider.dart';
-import 'package:taska/core/constants/colorconst.dart';
-import 'package:taska/core/constants/font_const.dart';
 import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/widgets/box_decoration_widget.dart';
 import 'package:taska/widgets/elevated_button_widget.dart';
@@ -45,7 +41,6 @@ class SignUpPage extends StatelessWidget {
                                 decoration: InputDecoration(
                                   prefixIcon: Icon(Icons.email),
                                   labelText: "Enter Email",
-                                  // fillColor: ColorConst.kTextFieldColor,
                                   fillColor: Colors.white,
                                   filled: true,
                                   border: OutlineInputBorder(
@@ -53,7 +48,6 @@ class SignUpPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
                                 ),
-                                // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
                               ),
                             ),
                           ),
@@ -72,11 +66,9 @@ class SignUpPage extends StatelessWidget {
                                     icon: Icon(Icons.remove_red_eye),
                                     onPressed: () {
                                       isShown = !isShown;
-                                      // setstate kerak
                                     },
                                   ),
                                   labelText: "Enter Password",
-                                  // fillColor: ColorConst.kTextFieldColor,
                                   fillColor: Colors.white,
                                   filled: true,
                                   border: OutlineInputBorder(
@@ -84,7 +76,6 @@ class SignUpPage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
                                 ),
-                                // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
                               ),
                             ),
                           ),
@@ -94,12 +85,9 @@ class SignUpPage extends StatelessWidget {
                               Checkbox(
                                 value: checkValue,
                                 shape: RoundedRectangleBorder(
-                                    // side: BorderSide(color: ColorConst.kPrimaryColor),
                                     borderRadius: BorderRadius.circular(5.0)),
                                 onChanged: (v) {
-                                  // v = !v!;
                                   checkValue = !checkValue;
-                                  // setstate kerak
                                 },
                               ),
                               Text("Remember me"),
@@ -146,14 +134,3 @@ class SignUpPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-                  // Container(
-                  //   padding: EdgeInsets.only(top: 3.0),
-                  //   alignment: Alignment.centerRight,
-                  //   child:
-                  //       InkWell(child: Text("Forgot password?"), onTap: () {}),
-                  // )
