@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 class LogInTextWidget extends StatelessWidget {
   String first;
   String second;
-  LogInTextWidget({
-    Key? key, required this.first, required this.second
-  }) : super(key: key);
+  LogInTextWidget({Key? key, required this.first, required this.second})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,9 @@ class LogInTextWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text(first, style: TextStyle(fontSize: 40),
+          Text(
+            first,
+            style: TextStyle(fontSize: 40),
           ),
           Text(
             second,

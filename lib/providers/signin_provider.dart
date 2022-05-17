@@ -7,7 +7,6 @@ import 'package:taska/services/firebase/fire_service.dart';
 import 'package:taska/widgets/my_messenger.dart';
 
 class LoginProvider extends ChangeNotifier {
-
   String? email;
 
   Future signIn(BuildContext context, String emailController,
@@ -17,7 +16,7 @@ class LoginProvider extends ChangeNotifier {
         email: emailController,
         password: passwordController,
       );
-        Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
       email = emailController;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -27,16 +26,17 @@ class LoginProvider extends ChangeNotifier {
         MyMessenger.messenger(context, "Noto'g'ri parol terildi", Colors.red);
       }
     }
-
   }
 
-  Future signUp(BuildContext context, String emailController, String passwordController) async {
+  Future signUp(BuildContext context, String emailController,
+      String passwordController) async {
     try {
       await FireService.auth.createUserWithEmailAndPassword(
         email: emailController,
         password: passwordController,
       );
-      Navigator.pushNamedAndRemoveUntil(context, '/fillprofile', (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/fillprofile', (route) => false);
       email = emailController;
       notifyListeners();
     } catch (e) {
@@ -45,26 +45,34 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future saveToStore(BuildContext context, String emailController, String passwordController) async {
+  Future saveToStore(BuildContext context, String emailController,
+      String passwordController) async {
     try {
-      await FireService.store.collection('users').doc('$emailController').set(
-        {
-          "email": emailController,
-          "create_at": FieldValue.serverTimestamp(),
-        }
-      );
+      await FireService.store.collection('users').doc('$emailController').set({
+        "email": emailController,
+        "create_at": FieldValue.serverTimestamp(),
+      });
     } catch (e) {
-      MyMessenger.messenger(context, "Error while sign in1", Colors.red);
+      MyMessenger.messenger(context, "Error while sign in!", Colors.red);
     }
     notifyListeners();
   }
 
-  Future fillProfile(BuildContext context, XFile file, String name, String username, String birth, String phone, String role) async {
+  Future fillProfile(BuildContext context, XFile file, String name,
+      String username, String birth, String phone, String role) async {
     try {
-        var image = await FireService.storage.ref().child('users').child('avatars').child(FireService.auth.currentUser!.email.toString()).putFile(File(file.path));
-        String downloadUrl = await image.ref.getDownloadURL();
+      var image = await FireService.storage
+          .ref()
+          .child('users')
+          .child('avatars')
+          .child(FireService.auth.currentUser!.email.toString())
+          .putFile(File(file.path));
+      String downloadUrl = await image.ref.getDownloadURL();
 
-      await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').update(
+      await FireService.store
+          .collection('users')
+          .doc('${FireService.auth.currentUser!.email}')
+          .update(
         {
           "image_url": downloadUrl,
           "name": name,
@@ -76,19 +84,29 @@ class LoginProvider extends ChangeNotifier {
         },
       );
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-        SetOptions(merge: true);
+      SetOptions(merge: true);
     } catch (e) {
+      print(e);
       MyMessenger.messenger(context, "Error while updating!", Colors.red);
     }
     notifyListeners();
   }
 
-    Future updateProfile(BuildContext context, XFile file, String name, String username, String birth, String phone, String role) async {
+  Future updateProfile(BuildContext context, XFile file, String name,
+      String username, String birth, String phone, String role) async {
     try {
-        var image = await FireService.storage.ref().child('users').child('avatars').child(FireService.auth.currentUser!.email.toString()).putFile(File(file.path));
-        String downloadUrl = await image.ref.getDownloadURL();
+      var image = await FireService.storage
+          .ref()
+          .child('users')
+          .child('avatars')
+          .child(FireService.auth.currentUser!.email.toString())
+          .putFile(File(file.path));
+      String downloadUrl = await image.ref.getDownloadURL();
 
-      await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').update(
+      await FireService.store
+          .collection('users')
+          .doc('${FireService.auth.currentUser!.email}')
+          .update(
         {
           "image_url": downloadUrl,
           "name": name,
@@ -99,7 +117,7 @@ class LoginProvider extends ChangeNotifier {
         },
       );
       Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-        SetOptions(merge: true);
+      SetOptions(merge: true);
     } catch (e) {
       MyMessenger.messenger(context, "Error while updating!", Colors.red);
     }
@@ -114,22 +132,4 @@ class LoginProvider extends ChangeNotifier {
       print("Xatolik yuz berdi");
     }
   }
-
-  // Future signInWithGoogle(BuildContext context) async {
-  //   try{
-  //     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  //     final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth?.accessToken,
-  //       idToken: googleAuth?.idToken,
-  //     );
-  //     await FirebaseAuth.instance.signInWithCredential(credential);
-  //     email = FirebaseAuth.instance.signInWithCredential(credential).toString();
-  //     print(googleUser);
-  //             Navigator.pushNamedAndRemoveUntil(context, '/fillprofile', (route) => false);
-  //   } catch (e){
-  //     print(e);
-  //     MyMessenger.messenger(context,"Error Google Sign In", Colors.red);
-  //   }
-  // }
 }

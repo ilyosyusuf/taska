@@ -4,10 +4,10 @@ class ThemeProvider extends ChangeNotifier {
   var themeMode = Brightness.light;
   bool themeStatus = false;
 
-  void changeTheme(){
-    if(themeMode == Brightness.dark){
+  void changeTheme() {
+    if (themeMode == Brightness.dark) {
       themeMode = Brightness.light;
-    } else{
+    } else {
       themeMode = Brightness.dark;
     }
     themeStatus = !themeStatus;

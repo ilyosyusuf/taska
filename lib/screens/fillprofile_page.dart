@@ -94,16 +94,19 @@ class FillProfilePage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: MyTextField.textField(
-                              text: "Date of Birth",
-                              controller: birthController,
-                              read: true,
-                              ),
+                            text: "Date of Birth",
+                            controller: birthController,
+                            read: true,
+                          ),
                         ),
                         CircleAvatar(
                           radius: MediaQuery.of(context).size.width * 0.07,
                           backgroundColor: Colors.white,
                           child: IconButton(
-                            icon: Icon(FontAwesomeIcons.calendar, color: ColorConst.kPrimaryColor,),
+                            icon: Icon(
+                              FontAwesomeIcons.calendar,
+                              color: ColorConst.kPrimaryColor,
+                            ),
                             onPressed: () async {
                               final DateTime? selected = await showDatePicker(
                                 context: context,
@@ -123,7 +126,10 @@ class FillProfilePage extends StatelessWidget {
                         text: "Email",
                         controller: emailController,
                         iconButton: IconButton(
-                            onPressed: () {}, icon: Icon(Icons.email),color: ColorConst.kPrimaryColor,)),
+                          onPressed: () {},
+                          icon: Icon(Icons.email),
+                          color: ColorConst.kPrimaryColor,
+                        )),
                     PhoneNumberField(
                       controller: phoneController,
                       countryCodeWidth: 80,

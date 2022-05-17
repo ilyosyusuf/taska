@@ -10,7 +10,6 @@ class FirstSplashPage extends StatefulWidget {
 }
 
 class _FirstSplashPageState extends State<FirstSplashPage> {
-
   @override
   void initState() {
     // TODO: implement initState
@@ -45,7 +44,7 @@ class _FirstSplashPageState extends State<FirstSplashPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                  child: Container(
+                  child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.3,
                       child: FadeInUp(
@@ -53,7 +52,7 @@ class _FirstSplashPageState extends State<FirstSplashPage> {
                         duration: Duration(seconds: 2),
                       )),
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: FadeInLeft(

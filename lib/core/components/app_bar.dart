@@ -14,9 +14,9 @@ class MyAppBar {
                   height: 50,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
-                      image: DecorationImage(
+                      image: const DecorationImage(
                           image: AssetImage('assets/images/taska.png')))),
-              SizedBox(
+              const SizedBox(
                 width: 10.0,
               ),
               const Text(

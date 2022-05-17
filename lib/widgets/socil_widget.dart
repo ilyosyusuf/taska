@@ -11,10 +11,16 @@ class SocialeWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        childs(() {}, FadeInDown(child: Image.asset('assets/icons/facebook.png', width: 30))),
-        childs(() {
-        }, FadeInUp(child: Image.asset('assets/icons/google.png', width: 30))),
-        childs(() {}, FadeInDown(child: Image.asset('assets/icons/apple.png', width: 30))),
+        childs(
+            () {},
+            FadeInDown(
+                child: Image.asset('assets/icons/facebook.png', width: 30))),
+        childs(() {},
+            FadeInUp(child: Image.asset('assets/icons/google.png', width: 30))),
+        childs(
+            () {},
+            FadeInDown(
+                child: Image.asset('assets/icons/apple.png', width: 30))),
       ],
     );
   }
@@ -32,7 +38,7 @@ class SocialeWidget extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 3,
             blurRadius: 7,
-            offset: Offset(2, 5), // changes position of shadow
+            offset: Offset(2, 5),
           ),
         ],
       ),

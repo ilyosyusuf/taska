@@ -34,11 +34,11 @@ class _SecondHomePageState extends State<SecondHomePage> {
         future: FireHome.getData(),
         builder: (context, AsyncSnapshot<Map<String, dynamic>> snap) {
           if (!snap.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator.adaptive(),
             );
           } else if (snap.hasError) {
-            return Center(
+            return const Center(
               child: Text(
                 "No Internet",
               ),
@@ -221,7 +221,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                     sett[i]['title'].toString(),
                                   ),
                                   subtitle: Row(
-                                    children: [
+                                    children:  [
                                       Text(sett[i]['date']
                                                   .toString() ==
                                               DateTime.now()
@@ -237,7 +237,7 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                     scale: 1.2,
                                     child: SizedBox(
                                       child: Checkbox(
-                                        side: BorderSide(
+                                        side: const BorderSide(
                                             width: 1,
                                             color:
                                                 ColorConst.kPrimaryColor),
@@ -258,7 +258,6 @@ class _SecondHomePageState extends State<SecondHomePage> {
                                           await context
                                               .read<AddProvider>()
                                               .deleteTodos(i);
-                                              // await context.read<AddProvider>().addToList(); 
                                           setState(() {});
                                         },
                                       ),

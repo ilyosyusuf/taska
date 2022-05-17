@@ -21,114 +21,136 @@ class SignUpPage extends StatelessWidget {
         children: [
           Expanded(
             flex: 3,
-            child: LogInTextWidget(first: "Create your", second: "Account",),
+            child: LogInTextWidget(
+              first: "Create your",
+              second: "Account",
+            ),
           ),
           Expanded(
             flex: 4,
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Form(
-                      child: Column(
-                        children: [
-                          FadeInLeft(
-                            child: Container(
-                              decoration: MyBoxDecoration.decor,
-                              child: TextFormField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.email),
-                                  labelText: "Enter Email",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Form(
+                    child: Column(
+                      children: [
+                        FadeInLeft(
+                          child: Container(
+                            decoration: MyBoxDecoration.decor,
+                            child: TextFormField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.email),
+                                labelText: "Enter Email",
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 30.0,
-                          ),
-                          FadeInRight(
-                            child: Container(
-                              decoration: MyBoxDecoration.decor,
-                              child: TextFormField(
-                                controller: passwordController,
-                                obscureText: isShown,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.lock),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(Icons.remove_red_eye),
-                                    onPressed: () {
-                                      isShown = !isShown;
-                                    },
-                                  ),
-                                  labelText: "Enter Password",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
+                        ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        FadeInRight(
+                          child: Container(
+                            decoration: MyBoxDecoration.decor,
+                            child: TextFormField(
+                              controller: passwordController,
+                              obscureText: isShown,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.remove_red_eye),
+                                  onPressed: () {
+                                    isShown = !isShown;
+                                  },
+                                ),
+                                labelText: "Enter Password",
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
                               ),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Checkbox(
-                                value: checkValue,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                onChanged: (v) {
-                                  checkValue = !checkValue;
-                                },
-                              ),
-                              Text("Remember me"),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                              value: checkValue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              onChanged: (v) {
+                                checkValue = !checkValue;
+                              },
+                            ),
+                            const Text("Remember me"),
+                          ],
+                        ),
+                      ],
                     ),
-                    ElevatedButtonWidget(onPressed: (){
-                          context.read<LoginProvider>().signUp(context, emailController.text, passwordController.text);
-                          context.read<LoginProvider>().saveToStore(context, emailController.text, passwordController.text);
-                    }, text: "Sign Up"),
-                    const SizedBox(height: 65),
-                    Row(
-                      children: const [
-                        Expanded(child: Divider(thickness: 1,)),
-                        Text("or continue with"),
-                        Expanded(child: Divider(thickness: 1,))
-                    ],)
-                  ],
-                ),
+                  ),
+                  ElevatedButtonWidget(
+                      onPressed: () {
+                        context.read<LoginProvider>().signUp(context,
+                            emailController.text, passwordController.text);
+                        context.read<LoginProvider>().saveToStore(context,
+                            emailController.text, passwordController.text);
+                      },
+                      text: "Sign Up"),
+                  const SizedBox(height: 65),
+                  Row(
+                    children: const [
+                      Expanded(
+                          child: Divider(
+                        thickness: 1,
+                      )),
+                      Text("or continue with"),
+                      Expanded(
+                          child: Divider(
+                        thickness: 1,
+                      ))
+                    ],
+                  )
+                ],
               ),
             ),
           ),
-          Expanded(flex: 2, child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SocialeWidget(),
-                SizedBox(height: 20.0,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                  Text("Allready have an account?", style: TextStyle(color: Colors.grey),),
-                  TextButton(onPressed: (){
-                    Navigator.pushNamedAndRemoveUntil(context, '/signin', (route) => false);
-                  }, child: Text("Sign In"))
-                ],)
-              ],
-            )
-          ))
+          Expanded(
+              flex: 2,
+              child: Container(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SocialeWidget(),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Allready have an account?",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, '/signin', (route) => false);
+                          },
+                          child: Text("Sign In"))
+                    ],
+                  )
+                ],
+              )))
         ],
       ),
     );

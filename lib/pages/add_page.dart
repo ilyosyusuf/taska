@@ -26,10 +26,9 @@ class AddPage extends StatelessWidget {
     return SafeArea(
       child: Container(
         color: ColorConst.kBackgroundColor,
-        // height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-          MyAppBar.myAppBar(),
+            MyAppBar.myAppBar(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: StatefulBuilder(builder: (context, setstate) {
@@ -39,7 +38,6 @@ class AddPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.15,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      // border: Border.all(color: ColorConst.kPrimaryColor),
                       color: Colors.white,
                       image: image == null
                           ? const DecorationImage(
@@ -63,7 +61,7 @@ class AddPage extends StatelessWidget {
                 );
               }),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
@@ -75,7 +73,8 @@ class AddPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(
                         bottom: 10.0, left: 20.0, right: 20.0),
-                    child: MyTextField.textField(text: "More", controller: _moreController),
+                    child: MyTextField.textField(
+                        text: "More", controller: _moreController),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(
@@ -88,12 +87,12 @@ class AddPage extends StatelessWidget {
                               controller: _dateController,
                               read: true),
                         ),
-                        SizedBox(width: 10.0),
+                        const SizedBox(width: 10.0),
                         CircleAvatar(
                           radius: MediaQuery.of(context).size.width * 0.07,
                           backgroundColor: Colors.white,
                           child: IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               FontAwesomeIcons.calendar,
                               color: ColorConst.kPrimaryColor,
                             ),
@@ -128,12 +127,12 @@ class AddPage extends StatelessWidget {
                             read: true,
                           ),
                         ),
-                        SizedBox(width: 10.0),
+                        const SizedBox(width: 10.0),
                         CircleAvatar(
                           radius: MediaQuery.of(context).size.width * 0.07,
                           backgroundColor: Colors.white,
                           child: IconButton(
-                            icon: Icon(
+                            icon: const Icon(
                               FontAwesomeIcons.clock,
                               color: ColorConst.kPrimaryColor,
                             ),
@@ -197,7 +196,7 @@ class AddPage extends StatelessWidget {
                   _dateController.clear();
                   Navigator.pop(context);
                 },
-                child: Text("Add"),
+                child: const Text("Add"),
               ),
             ),
           ],

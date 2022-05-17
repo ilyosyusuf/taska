@@ -9,7 +9,6 @@ import 'package:taska/providers/lottie_provider.dart';
 import 'package:taska/providers/ontap_provider.dart';
 import 'package:taska/providers/signin_provider.dart';
 import 'package:taska/providers/theme_provider.dart';
-import 'package:taska/screens/home.dart';
 import 'package:taska/services/firebase/fire_service.dart';
 import 'package:taska/services/notification_service.dart';
 
@@ -34,21 +33,15 @@ void main() async {
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
-  // MyRoute _myRoute = MyRoute();
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(brightness: context.watch<ThemeProvider>().themeMode),
-      // theme: ThemeData.dark(),
-      // theme: ThemeComp.myTheme,
-      // home: LoginPage()
-      // initialRoute: FireService.auth.currentUser != null ? '/home': '/signup',
-      initialRoute: '/home',
+      initialRoute:
+          FireService.auth.currentUser != null ? '/home' : '/firstsplash',
       onGenerateRoute: MyRoute.instance.onGenerateRoute,
-      // home: ExamplePage(),
     );
   }
 }

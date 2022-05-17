@@ -4,7 +4,6 @@ import 'package:taska/screens/authentication/sign_in_page.dart';
 import 'package:taska/screens/authentication/sign_up_page.dart';
 import 'package:taska/screens/fillprofile_page.dart';
 import 'package:taska/screens/first_splash_page.dart';
-import 'package:taska/screens/full_info_page.dart';
 import 'package:taska/screens/homepage.dart';
 import 'package:taska/screens/splash_page.dart';
 import 'package:taska/screens/update_profile_page.dart';
@@ -12,13 +11,12 @@ import 'package:taska/screens/update_profile_page.dart';
 class MyRoute {
   static final MyRoute _instance = MyRoute._init();
   static MyRoute get instance => _instance;
-  
+
   MyRoute._init();
 
   Route? onGenerateRoute(RouteSettings settings) {
     var args = settings.arguments;
     switch (settings.name) {
-
       case '/firstsplash':
         return _pages(FirstSplashPage());
 
@@ -41,17 +39,10 @@ class MyRoute {
 
       case '/updateprofile':
         return _pages(UpdateProfilePage());
-
-      case '/fullinfo':
-        return _pages(FullInfoPage());
-
     }
   }
-    _pages(Widget page){
-      return MaterialPageRoute(builder: (context)=> page);
-    }
 
+  _pages(Widget page) {
+    return MaterialPageRoute(builder: (context) => page);
+  }
 }
-
-
-  

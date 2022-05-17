@@ -8,7 +8,6 @@ import 'package:taska/services/firebase/fire_service.dart';
 class AddProvider extends ChangeNotifier {
   List todos = [];
   Set setList = {};
-  // bool onTap = false;
   Future addToDb(BuildContext context, XFile file, String email, String title,
       String more, String date, String time) async {
     var image = await FireService.storage
@@ -32,9 +31,8 @@ class AddProvider extends ChangeNotifier {
     await FireService.store.collection('users').doc('$email').set(
       {"todos": todos},
       SetOptions(merge: true),
-    ); 
+    );
     print("qoshildi");
-    // print(todos[2]['check'] = true);
     notifyListeners();
   }
 
@@ -48,16 +46,18 @@ class AddProvider extends ChangeNotifier {
       {"todos": todos},
       SetOptions(merge: true),
     );
-    // print(todos[index]['check']);
 
     notifyListeners();
   }
 
   Future deleteTodos(int index) async {
     if (todos[index]['check']) {
-    todos.removeAt(index);
+      todos.removeAt(index);
     }
-    await FireService.store.collection('users').doc('${FireService.auth.currentUser!.email}').update(
+    await FireService.store
+        .collection('users')
+        .doc('${FireService.auth.currentUser!.email}')
+        .update(
       {
         "todos": todos,
       },
@@ -77,13 +77,16 @@ class AddProvider extends ChangeNotifier {
     });
   }
 
-  void searchIt(String text){
+  void searchIt(String text) {
     setList.clear();
     for (var i = 0; i < todos.length; i++) {
-      if(text.isEmpty){
+      if (text.isEmpty) {
         setList.clear();
         notifyListeners();
-      }else if(todos[i]['title'].toString().toLowerCase().contains(text.toString().toLowerCase())){
+      } else if (todos[i]['title']
+          .toString()
+          .toLowerCase()
+          .contains(text.toString().toLowerCase())) {
         setList.add(todos[i]);
         notifyListeners();
       }

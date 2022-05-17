@@ -25,7 +25,7 @@ class SplashProvider extends ChangeNotifier {
   onTap(BuildContext context) async {
     index++;
     notifyListeners();
-     if (index ==3) {
+    if (index == 3) {
       Navigator.pushNamedAndRemoveUntil(context, '/signup', (route) => false);
     }
   }

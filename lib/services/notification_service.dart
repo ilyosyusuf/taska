@@ -32,16 +32,16 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  Future<void> showNotification(
-      {required int id,
-      required String title,
-      required String body,}) async {
+  Future<void> showNotification({
+    required int id,
+    required String title,
+    required String body,
+  }) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
         id,
         title,
         body,
-        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 1)),         
-
+        tz.TZDateTime.now(tz.local).add(const Duration(seconds: 1)),
         const NotificationDetails(
             android: AndroidNotificationDetails('main_channel', "Main_channel",
                 importance: Importance.max, priority: Priority.max),

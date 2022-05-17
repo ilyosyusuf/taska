@@ -28,141 +28,134 @@ class SignInPage extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Column(
-                  children: [
-                    Form(
-                      child: Column(
-                        children: [
-                          FadeInLeft(
-                            child: Container(
-                              decoration: MyBoxDecoration.decor,
-                          
-                              child: TextFormField(
-                                controller: emailController,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.email),
-                                  labelText: "Enter Email",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                ),
-                                // validator: (v)=> v!.length < 5 ? "5 tadan kam bo'lmasin!" : null
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30.0,
-                          ),
-                          FadeInRight(
-                            child: Container(
-                              decoration: MyBoxDecoration.decor,
-                              
-                              child: TextFormField(
-                                controller: passwordController,
-                                obscureText: isShown,
-                                decoration: InputDecoration(
-                                  prefixIcon: Icon(Icons.lock),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(Icons.remove_red_eye),
-                                    onPressed: () {
-                                      isShown = !isShown;
-                                    },
-                                  ),
-                                  labelText: "Enter Password",
-                                  fillColor: Colors.white,
-                                  filled: true,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  Form(
+                    child: Column(
+                      children: [
+                        FadeInLeft(
+                          child: Container(
+                            decoration: MyBoxDecoration.decor,
+                            child: TextFormField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.email),
+                                labelText: "Enter Email",
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15.0),
                                 ),
                               ),
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Checkbox(
-                                value: checkValue,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                onChanged: (v) {
-                                  checkValue = !checkValue;
-                                },
-                              ),
-                              Text("Remember me"),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    ElevatedButtonWidget(
-                        onPressed: () {
-                          context.read<LoginProvider>().signIn(context,
-                              emailController.text, passwordController.text);
-                        },
-                        text: "Sign In"),
-                    Container(
-                      height: 65,
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text("Forgot the password?"),
-                      ),
-                    ),
-                    Row(
-                      children: const [
-                        Expanded(
-                            child: Divider(
-                          thickness: 1,
-                        )),
-                        Text("or continue with"),
-                        Expanded(
-                          child: Divider(
-                            thickness: 1,
                           ),
                         ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        FadeInRight(
+                          child: Container(
+                            decoration: MyBoxDecoration.decor,
+                            child: TextFormField(
+                              controller: passwordController,
+                              obscureText: isShown,
+                              decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.lock),
+                                suffixIcon: IconButton(
+                                  icon: Icon(Icons.remove_red_eye),
+                                  onPressed: () {
+                                    isShown = !isShown;
+                                  },
+                                ),
+                                labelText: "Enter Password",
+                                fillColor: Colors.white,
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Checkbox(
+                              value: checkValue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              onChanged: (v) {
+                                checkValue = !checkValue;
+                              },
+                            ),
+                            const Text("Remember me"),
+                          ],
+                        ),
                       ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SocialeWidget(),
+                    ),
+                  ),
+                  ElevatedButtonWidget(
+                      onPressed: () {
+                        context.read<LoginProvider>().signIn(context,
+                            emailController.text, passwordController.text);
+                      },
+                      text: "Sign In"),
                   SizedBox(
-                    height: 20.0,
+                    height: 65,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text("Forgot the password?"),
+                    ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account?",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '/signup', (route) => false);
-                        },
-                        child: Text("Sign Up"),
+                    children: const [
+                      Expanded(
+                          child: Divider(
+                        thickness: 1,
+                      )),
+                      Text("or continue with"),
+                      Expanded(
+                        child: Divider(
+                          thickness: 1,
+                        ),
                       ),
                     ],
                   )
                 ],
               ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SocialeWidget(),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "Don't have an account?",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/signup', (route) => false);
+                      },
+                      child: Text("Sign Up"),
+                    ),
+                  ],
+                )
+              ],
             ),
           ),
         ],
